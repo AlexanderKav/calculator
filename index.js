@@ -12,8 +12,9 @@ const clear = document.querySelector(".delete");
 
 const add = document.querySelector(".add");
 const minus = document.querySelector(".minus");
-const mulitply = document.querySelector(".mulitply");
+const multiply = document.querySelector(".multiply");
 const divide = document.querySelector(".divide");
+const dot = document.querySelector(".dot");
 
 const equals = document.querySelector(".equals");
 const calculatorScreen = document.querySelector(".calculator-screen");
@@ -23,22 +24,29 @@ const calculations = document.querySelector(".calculations");
 const calculation = document.createElement("h1");
 
 let equation = []
-let previousEquation = []
-
 
 let number=""
 let number2=""
+let total=0
 
 let operations=""
 
 let plus="+"
 let takeaway="-"
 let dividing="÷"
-let mulitplying="x"
+let multiplying="x"
 
-let total=0
+clear.addEventListener("click", ()=>{
+for(let i = 0; i < equation.length; i++){
+        equation.shift();
+        }
+    calculations.textContent="";
+    totalCalculation.textContent=""
+    number = "";
+    number2 = "";
+    total = 0
 
-//let plusSign = "+"
+});
 
 nine.addEventListener("click",()=>{
     const div = document.createElement("div");
@@ -72,32 +80,59 @@ eight.addEventListener("click",()=>{
     }
 });
 
+seven.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_7 = document.createElement("h1");
+    no_7.textContent = "7";
+    div.appendChild(no_7);
+    calculations.appendChild(div);
+
+    if(typeof number != "string"){
+        number2 = number2 + "7";
+        console.log(number2);
+    }
+    else{
+    number = number + "7";
+    }
+});
+
+
+
+
+
 add.addEventListener("click",()=>{
-    if (total > 0){
+    if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
+
         const div = document.createElement("div");
         const number= document.createElement("h1");
+
         number.textContent=total;
         div.appendChild(number);
         calculations.appendChild(number);
     }
+
     const operator = document.createElement("div");
     const adding = document.createElement("h1");
     adding.textContent = "+";
-    operator.appendChild(adding)
+    operator.appendChild(adding);
     calculations.appendChild(operator);
-    operations = plus
+    operations = plus;
     number = parseInt(number);
+    equation.push(operations)
+
 
 });
 
 minus.addEventListener("click",()=>{
-    if (total > 0){
+    if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
+
         const div = document.createElement("div");
         const number= document.createElement("h1");
+
         number.textContent=total;
         div.appendChild(number);
         calculations.appendChild(number);
@@ -107,31 +142,119 @@ minus.addEventListener("click",()=>{
     takingAway.textContent = "-";
     operator.appendChild(takingAway)
     calculations.appendChild(operator);
-    operations = takeaway
+    operations = takeaway;
     number = parseInt(number);
+    equation.push(operations)
+});
+
+multiply.addEventListener("click",()=>{
+    if (total > 0 || total < 0){
+        calculations.textContent="";
+        calculation.textContent = "";
+
+        const div = document.createElement("div");
+        const number= document.createElement("h1");
+
+        number.textContent=total;
+        div.appendChild(number);
+        calculations.appendChild(number);
+    }
+    const operator = document.createElement("div");
+    const multiplication = document.createElement("h1");
+    multiplication.textContent = "X";
+    operator.appendChild(multiplication)
+    calculations.appendChild(operator);
+    operations = multiplying;
+    number = parseInt(number);
+    equation.push(operations)
+});
+
+
+divide.addEventListener("click",()=>{
+    if (total > 0 || total < 0){
+        calculations.textContent="";
+        calculation.textContent = "";
+
+        const div = document.createElement("div");
+        const number= document.createElement("h1");
+
+        number.textContent=total;
+        div.appendChild(number);
+        calculations.appendChild(number);
+    }
+    const operator = document.createElement("div");
+    const division = document.createElement("h1");
+    division.textContent = "÷";
+    operator.appendChild(division)
+    calculations.appendChild(operator);
+    operations = dividing;
+    number = parseInt(number);
+    equation.push(operations)
+});
+
+dot.addEventListener("click",()=>{
+    const operator = document.createElement("div");
+    const point = document.createElement("h1");
+    point.textContent = ".";
+    operator.appendChild(point)
+    calculations.appendChild(operator);
 });
 
 
 
-
 equals.addEventListener("click",()=>{
+
+    if(equation.length > 1){
+alert("You cannot use more than one operator at a time");
+alert("Please begin again");
+for(let i = 0; i < equation.length; i++){
+    equation.shift();
+}
+calculations.textContent="";
+number = "";
+number2 = "";
+total = 0
+   } 
+
+
+   else if(equation.length = 1){
     number = parseInt(number);
     number2 = parseInt(number2)
-    if(operations = "+"){
+
+
+    if(operations === plus){
     total = number + number2;    
     calculation.textContent = total;
     totalCalculation.appendChild(calculation);
     }
 
-    else if(operations = "-"){
+    else if(operations === takeaway){
         total = number - number2;    
         calculation.textContent = total;
         totalCalculation.appendChild(calculation);
-        };
+        }
+    
+        else if(operations === multiplying){
+            total = number * number2;  
+            calculation.textContent = total;
+            totalCalculation.appendChild(calculation);
+            }
 
+            else if(operations === dividing){
+                total = number / number2;  
+                calculation.textContent = total;
+                totalCalculation.appendChild(calculation);
+                }
+    
+        number = total;
+        number2 = "";
+    }
 
-    number = total;
-    number2 = "";
+    if(equation.length > 0){
+        for(let i = 0; i < equation.length; i++){
+            equation.shift();
+        }
+    }
 
 });
 

@@ -4,11 +4,11 @@
     align-items: center;
 }
 .bottom-numbers{
-    display: flex;
+display:flex;
 }
 
 .delete{
-    flex-grow: 1;
+   flex-grow: 1;
     margin-left: 5px;
 }
 
@@ -64,4 +64,8 @@ border-radius: 25px;
 .calculations{
     display: flex;
     flex-direction: row;
+}
+
+.clear{
+    margin-right: 5px;
 }
