@@ -35,6 +35,7 @@ let plus="+"
 let takeaway="-"
 let dividing="÷"
 let multiplying="x"
+//let float="."
 
 clear.addEventListener("click", ()=>{
 for(let i = 0; i < equation.length; i++){
@@ -55,12 +56,12 @@ nine.addEventListener("click",()=>{
     div.appendChild(no_9)
     calculations.appendChild(div);
 
-    if(typeof number != "string"){
-        number2 = number2 + "9"
+    if(typeof number == "number"){
+        number2 = number2 + "9";
         console.log(number2)
     }
     else{
-    number = number + "9"
+    number = number + "9";
     }
 });
 
@@ -71,7 +72,7 @@ eight.addEventListener("click",()=>{
     div.appendChild(no_8)
     calculations.appendChild(div);
 
-    if(typeof number != "string"){
+    if(typeof number == "number"){
         number2 = number2 + "8";
         console.log(number2);
     }
@@ -87,7 +88,7 @@ seven.addEventListener("click",()=>{
     div.appendChild(no_7);
     calculations.appendChild(div);
 
-    if(typeof number != "string"){
+    if(typeof number == "number"){
         number2 = number2 + "7";
         console.log(number2);
     }
@@ -101,6 +102,11 @@ seven.addEventListener("click",()=>{
 
 
 add.addEventListener("click",()=>{
+  if (operations.length >=1){
+    let errorMessage = alert("You can only use one operator per equation");
+    return errorMessage;
+}
+else{
     if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
@@ -112,17 +118,20 @@ add.addEventListener("click",()=>{
         div.appendChild(number);
         calculations.appendChild(number);
     }
-
     const operator = document.createElement("div");
     const adding = document.createElement("h1");
     adding.textContent = "+";
     operator.appendChild(adding);
     calculations.appendChild(operator);
     operations = plus;
-    number = parseInt(number);
     equation.push(operations)
-
-
+        if(number.includes(".") || number % 1 != 0){
+            number = parseFloat(number)
+        }else{
+    number = parseInt(number)
+        }
+        console.log(number)
+    }
 });
 
 minus.addEventListener("click",()=>{
@@ -192,62 +201,109 @@ divide.addEventListener("click",()=>{
     equation.push(operations)
 });
 
+
 dot.addEventListener("click",()=>{
+    
+        let counter1 = 0
+    for(i=0; i<number.length; i++ ){
+        if (number[i] == "."){
+            counter1 = counter1 +1
+        }
+    }
+        if (counter1 == 1){
+            let errorMessage = alert("You can only use one decimal per number");
+            return errorMessage;
+        }
+
+
+        let counter2 = 0
+        for(i=0; i<number2.length; i++ ){
+            if (number2[i] == "."){
+                counter2 = counter2 +1
+            }
+        }
+            if (counter2 == 1){
+                let errorMessage = alert("You can only use one decimal per number");
+                return errorMessage;
+            }
+    
     const operator = document.createElement("div");
     const point = document.createElement("h1");
     point.textContent = ".";
     operator.appendChild(point)
     calculations.appendChild(operator);
+    if (typeof number == "number"){
+        number2 = number2 + ".";
+        console.log(number2)
+    }
+    else{
+    number = number + ".";
+    }
+    console.log(number)
+
 });
 
 
 
 equals.addEventListener("click",()=>{
 
-    if(equation.length > 1){
-alert("You cannot use more than one operator at a time");
-alert("Please begin again");
-for(let i = 0; i < equation.length; i++){
-    equation.shift();
-}
-calculations.textContent="";
-number = "";
-number2 = "";
-total = 0
-   } 
+
+    if (number2.includes(".")){
+            number2 = parseFloat(number2)
+            number = parseFloat(number)
+     }else{
+           number2 = parseInt(number2)
+    }
+     
+
+    //if(equation.length > 1){
+//alert("You cannot use more than one operator at a time");
+//alert("Please begin again");
+//for(let i = 0; i < equation.length; i++){
+  //  equation.shift();
+//}
+//calculations.textContent="";
+//number = "";
+//number2 = "";
+//total = 0
+  // } 
 
 
-   else if(equation.length = 1){
-    number = parseInt(number);
-    number2 = parseInt(number2)
-
+//else if
+    if(equation.length = 1){
 
     if(operations === plus){
-    total = number + number2;    
+    total = number + number2;
+    total = Math.round(total * 100) / 100 
+    console.log(total)
     calculation.textContent = total;
     totalCalculation.appendChild(calculation);
     }
 
     else if(operations === takeaway){
-        total = number - number2;    
+        total = number - number2;
+        total = Math.round(total * 100) / 100;    
         calculation.textContent = total;
         totalCalculation.appendChild(calculation);
         }
     
         else if(operations === multiplying){
-            total = number * number2;  
+            total = number * number2;
+            total = Math.round(total * 100) / 100;   
             calculation.textContent = total;
             totalCalculation.appendChild(calculation);
             }
 
             else if(operations === dividing){
                 total = number / number2;  
+                total = Math.round(total * 100) / 100;
                 calculation.textContent = total;
                 totalCalculation.appendChild(calculation);
                 }
     
         number = total;
         number2 = "";
+        operations=""
     }
 
     if(equation.length > 0){
