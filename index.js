@@ -35,7 +35,7 @@ let plus="+"
 let takeaway="-"
 let dividing="÷"
 let multiplying="x"
-//let float="."
+
 
 clear.addEventListener("click", ()=>{
 for(let i = 0; i < equation.length; i++){
@@ -97,11 +97,125 @@ seven.addEventListener("click",()=>{
     }
 });
 
+six.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_6 = document.createElement("h1");
+    no_6.textContent = "6";
+    div.appendChild(no_6);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "6";
+        console.log(number2);
+    }
+    else{
+    number = number + "6";
+    }
+});
+
+five.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_5 = document.createElement("h1");
+    no_5.textContent = "5";
+    div.appendChild(no_5);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "5";
+        console.log(number2);
+    }
+    else{
+    number = number + "5";
+    }
+});
+
+four.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_4 = document.createElement("h1");
+    no_4.textContent = "4";
+    div.appendChild(no_4);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "4";
+        console.log(number2);
+    }
+    else{
+    number = number + "4";
+    }
+});
+
+three.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_3 = document.createElement("h1");
+    no_3.textContent = "3";
+    div.appendChild(no_3);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "3";
+        console.log(number2);
+    }
+    else{
+    number = number + "3";
+    }
+});
 
 
+two.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_2 = document.createElement("h1");
+    no_2.textContent = "2";
+    div.appendChild(no_2);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "2";
+        console.log(number2);
+    }
+    else{
+    number = number + "2";
+    }
+});
+
+one.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_1 = document.createElement("h1");
+    no_1.textContent = "1";
+    div.appendChild(no_1);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "1";
+        console.log(number2);
+    }
+    else{
+    number = number + "1";
+    }
+});
+
+zero.addEventListener("click",()=>{
+    const div = document.createElement("div");
+    const no_0 = document.createElement("h1");
+    no_0.textContent = "0";
+    div.appendChild(no_0);
+    calculations.appendChild(div);
+
+    if(typeof number == "number"){
+        number2 = number2 + "0";
+        console.log(number2);
+    }
+    else{
+    number = number + "0";
+    }
+});
 
 
 add.addEventListener("click",()=>{
+    if (number==""){
+        let operationsError =  alert("Please choose a number first");
+        return operationsError;
+    }
   if (operations.length >=1){
     let errorMessage = alert("You can only use one operator per equation");
     return errorMessage;
@@ -135,7 +249,16 @@ else{
 });
 
 minus.addEventListener("click",()=>{
-    if (total > 0 || total < 0){
+    if (number==""){
+        let operationsError =  alert("Please choose a number first");
+        return operationsError;
+    }
+    if (operations.length >=1){
+        let errorMessage = alert("You can only use one operator per equation");
+        return errorMessage;
+    }
+    else{
+        if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
 
@@ -152,11 +275,28 @@ minus.addEventListener("click",()=>{
     operator.appendChild(takingAway)
     calculations.appendChild(operator);
     operations = takeaway;
-    number = parseInt(number);
     equation.push(operations)
+
+    if(number.includes(".") || number % 1 != 0){
+        number = parseFloat(number)
+    }else{
+    number = parseInt(number)
+    }
+    console.log(number)
+
+}
 });
 
 multiply.addEventListener("click",()=>{
+    if (number==""){
+        let operationsError =  alert("Please choose a number first");
+        return operationsError;
+    }
+    if (operations.length >=1){
+        let errorMessage = alert("You can only use one operator per equation");
+        return errorMessage;
+    }
+else{
     if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
@@ -174,13 +314,29 @@ multiply.addEventListener("click",()=>{
     operator.appendChild(multiplication)
     calculations.appendChild(operator);
     operations = multiplying;
-    number = parseInt(number);
     equation.push(operations)
+    if(number.includes(".") || number % 1 != 0){
+        number = parseFloat(number)
+    }else{
+    number = parseInt(number)
+    }
+    console.log(number)
+
+}
 });
 
 
 divide.addEventListener("click",()=>{
-    if (total > 0 || total < 0){
+    if (number==""){
+        let operationsError =  alert("Please choose a number first");
+        return operationsError;
+    }
+    if (operations.length >=1){
+        let errorMessage = alert("You can only use one operator per equation");
+        return errorMessage;
+    }
+    else{
+        if (total > 0 || total < 0){
         calculations.textContent="";
         calculation.textContent = "";
 
@@ -197,8 +353,15 @@ divide.addEventListener("click",()=>{
     operator.appendChild(division)
     calculations.appendChild(operator);
     operations = dividing;
-    number = parseInt(number);
-    equation.push(operations)
+    equation.push(operations);
+    if(number.includes(".") || number % 1 != 0){
+        number = parseFloat(number)
+    }else{
+    number = parseInt(number)
+    }
+    console.log(number)
+
+}
 });
 
 
@@ -246,7 +409,10 @@ dot.addEventListener("click",()=>{
 
 
 equals.addEventListener("click",()=>{
-
+if (number2==""){
+    let calculationError = alert("Please pick a number")
+    return calculationError
+}
 
     if (number2.includes(".")){
             number2 = parseFloat(number2)
