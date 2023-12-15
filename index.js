@@ -465,6 +465,9 @@ dot.addEventListener("click",()=>{
 
 
 negativeNumbers.addEventListener("click", ()=>{
+    if(operations==="" && total===number){
+        alert("Please pick an operator")
+    }
     if (number.length == 0){
 
         const operator = document.createElement("div");
